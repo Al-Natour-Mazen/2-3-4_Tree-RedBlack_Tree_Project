@@ -1,14 +1,3 @@
-(*****************************)
-(*    AP3 PROJET Groupe-2    *)
-(*      Al Natour Mazen      *)
-(*       Caillaud Tom        *)
-(*****************************)
-
-(*    Vous trouverez dans ce document toutes les fonctions et types définissant les arbres 2-3-4 et les arbres rouge et noir.
-    Concernant les démonstrations ainsi que les exemples des arbres, ils se trouvent dans le rapport.pdf.                   *)
-
-
-
 
 (*================================================= 2-3-4 TREE ==================================================*)
 
@@ -519,7 +508,7 @@ to_234(arbretest);;
 (*------------------------Abres Rouge-Noir-----------------------*)
 
 
-(* Equilibrage � gauche apres suppresion*)
+(* Equilibrage à gauche apres suppresion*)
 let balance_left_del (c,l,x,r: color * 'a t_rbtree* 'a* 'a t_rbtree) : 'a t_rbtree =
   match r with
   | ROOTED (Red, y, rl, rr) -> ROOTED (c, y, ROOTED (Red, x, l, rl), rr)
@@ -527,7 +516,7 @@ let balance_left_del (c,l,x,r: color * 'a t_rbtree* 'a* 'a t_rbtree) : 'a t_rbtr
   | _ -> ROOTED (c, x, l, r)
 ;;
 
-(* Equilibrage � droite apres suppresion*)
+(* Equilibrage à droite apres suppresion*)
 let balance_right_del (c,l,x,r: color * 'a t_rbtree* 'a* 'a t_rbtree) : 'a t_rbtree =
   match l with
   | ROOTED (Red, y, ll, lr) -> ROOTED (c, y, ll, ROOTED (Red, x, lr, r))
@@ -545,7 +534,7 @@ let rec merge (t1,t2: 'a t_rbtree * 'a t_rbtree) : 'a t_rbtree =
      else balance_left_del (c1, l1, x1, merge(r1, t2))
 ;;
 
-(* Suppression de l'�l�ment de valeur minimale dans un arbre rouge-noir *)
+(* Suppression de l'élément de valeur minimale dans un arbre rouge-noir *)
 let rec delete_min(t : 'a t_rbtree) : 'a * 'a t_rbtree =
   match t with
   | EMPTY -> failwith("err : delete_min sur un arbre vide")
@@ -567,12 +556,12 @@ let rec delete_min(t : 'a t_rbtree) : 'a * 'a t_rbtree =
       )
 ;;
 
-(* Suppression d'un �l�ment dans un arbre rouge-noir *)
+(* Suppression d'un élément dans un arbre rouge-noir *)
 let rec delete_aux (value,t : 'a * 'a t_rbtree) : 'a t_rbtree =
   match t with
   | EMPTY -> EMPTY
   | ROOTED (color, v, l, r) ->
-     (* Cas o� la valeur � supprimer est la racine de l'arbre *)
+     (* Cas où la valeur à supprimer est la racine de l'arbre *)
      if value = v
      then
      (
@@ -663,8 +652,8 @@ val newtree2 : int t_rbtree =
 
 (*------------------------Arbres 2-3-4-----------------------*)
 
-(*Une fonction pour récupérer la plus grande valeur de l'arbre pour l'opération de délétion,
-Suppose l'arbre correctement fait, càd avec la plus grande valeur à droite*)
+(*Une fonction pour rÃ©cupÃ©rer la plus grande valeur de l'arbre pour l'opÃ©ration de dÃ©lÃ©tion,
+Suppose l'arbre correctement fait, cÃ d avec la plus grande valeur Ã  droite*)
 let right_tree(tree : 'a t_234tree) : 'a t_234tree =
   match tree with
   | TWO_ROOT(_,_,r) -> r
@@ -688,7 +677,7 @@ let rec t234_highest_value (tree : 'a t_234tree) : 'a =
 ;;
 
 (*Fonction pour modifier une valeur d'un noeud, on suppose que la valeur ne changera pas
-l'équilibre de l'arbre, à eulement utiliser dans la fonction de délétion*)
+l'Ã©quilibre de l'arbre, Ã  eulement utiliser dans la fonction de dÃ©lÃ©tion*)
 let rec modify_value (tree,value,new_value : 'a t_234tree * 'a * 'a) : 'a t_234tree =
   match tree with
   | EMPTY -> tree
@@ -722,7 +711,7 @@ let rec modify_value (tree,value,new_value : 'a t_234tree * 'a * 'a) : 'a t_234t
 ;;
 
 
-(*Pour les arbres à 2-noeud pour un cas spécial*)
+(*Pour les arbres Ã  2-noeud pour un cas spÃ©cial*)
 let getTheRoot (tree : 'a t_234tree) : 'a =
   match tree with
   | TWO_ROOT(v,_,_) -> v
@@ -821,14 +810,14 @@ let rec t234_delete (tree, value : 'a t_234tree * 'a) : 'a t_234tree =
                              two_rooting(v,new_left,r)
                       )
                    | _ -> failwith "error unknown tree l626"
-                 else (*Si le père est un 2-noeud et que ses fils ne sont pas des feuilles*)
+                 else (*Si le pÃ¨re est un 2-noeud et que ses fils ne sont pas des feuilles*)
                    two_rooting(v,t234_delete(l,value),r)
             else two_rooting(v,t234_delete(l,value),r)
        else
          if v < value
          then if isEquals_234tree(r,value)
               then if isLeaf_234tree(r)
-                   then (*Si le père est un 2-noeud et que ses fils sont des feuilles*)
+                   then (*Si le pÃ¨re est un 2-noeud et que ses fils sont des feuilles*)
                      match r with
                      | TWO_ROOT(rv,_,_) ->
                         (
@@ -899,7 +888,7 @@ let rec t234_delete (tree, value : 'a t_234tree * 'a) : 'a t_234tree =
 
                      | _ -> failwith "error unknown tree l686"
 
-                   else (*Si le père est un 2-noeud et que ses fils ne sont pas des feuilles*)
+                   else (*Si le pÃ¨re est un 2-noeud et que ses fils ne sont pas des feuilles*)
                      two_rooting(v,l,t234_delete(r,value))
 
               else two_rooting(v,l,t234_delete(r,value))
@@ -982,7 +971,7 @@ let rec t234_delete (tree, value : 'a t_234tree * 'a) : 'a t_234tree =
                         )
                      | _ -> failwith "error unknown tree l752"
                    )
-                 else (*Si le père est un 3-noeud et que ses fils ne sont pas des feuilles*)
+                 else (*Si le pÃ¨re est un 3-noeud et que ses fils ne sont pas des feuilles*)
                    three_rooting(v1,v2,t234_delete(l,value),m,r)
             else three_rooting(v1,v2,t234_delete(l,value),m,r)
        else
@@ -1215,7 +1204,7 @@ let rec t234_delete (tree, value : 'a t_234tree * 'a) : 'a t_234tree =
                         )
                      | _ -> failwith "error unknown tree l935"
                    )
-                 else (*Si le père est un 3-noeud et que ses fils ne sont pas des feuilles*)
+                 else (*Si le pÃ¨re est un 3-noeud et que ses fils ne sont pas des feuilles*)
                    four_rooting(v1,v2,v3,t234_delete(l,value),ml,mr,r)
             else four_rooting(v1,v2,v3,t234_delete(l,value),ml,mr,r)
        else
@@ -1354,7 +1343,7 @@ let rec t234_delete (tree, value : 'a t_234tree * 'a) : 'a t_234tree =
                         )
                      | _ -> failwith "error unknown tree l1048"
                    )
-                 else (*Si le père est un 3-noeud et que ses fils ne sont pas des feuilles*)
+                 else (*Si le pÃ¨re est un 3-noeud et que ses fils ne sont pas des feuilles*)
                    four_rooting(v1,v2,v3,l,ml,t234_delete(mr,value),r)
             else four_rooting(v1,v2,v3,l,ml,t234_delete(mr,value),r)
            else
@@ -1439,7 +1428,7 @@ let rec t234_delete (tree, value : 'a t_234tree * 'a) : 'a t_234tree =
                       modify_value(new_tree,v3,new_root_value)
 ;;
 
-(*Vous pouvez suivre ce site : j'y reprend l'exemple et on retrouve les même résultats*)
+(*Vous pouvez suivre ce site : j'y reprend l'exemple et on retrouve les mÃªme rÃ©sultats*)
 (*https://azrael.digipen.edu/~mmead/www/Courses/CS280/Trees-2-3-4-delete.html*)
 
 let a : 'a t_234tree = three_rooting(1,2,empty_234tree(),empty_234tree(),empty_234tree());;
@@ -1457,8 +1446,8 @@ let c3 : 'a t_234tree = t234_delete(c2,8);;
 let c4 : 'a t_234tree = t234_delete(c3,18);;
 
 let c5 : 'a t_234tree = t234_delete(c4,3);;
-let c6 : 'a t_234tree = t234_delete(c5,16);;(*ne donne pas le même résultat car la façon dont
-                                             j'ai opéré est différente que la façon dont
+let c6 : 'a t_234tree = t234_delete(c5,16);;(*ne donne pas le mÃªme rÃ©sultat car la faÃ§on dont
+                                             j'ai opÃ©rÃ© est diffÃ©rente que la faÃ§on dont
                                              l'auteur le fait mais on a bien un 3-noeud avec
                                              en fils un 2-noeud et un 3-noeud*)
 let c7 : 'a t_234tree = t234_delete(c6,5);;(*on retrouve pareil au final vous voyez*)
@@ -1470,5 +1459,5 @@ let c12 : 'a t_234tree = t234_delete(c11,25);;
 let c13 : 'a t_234tree = t234_delete(c12,19);;
 let c14 : 'a t_234tree = t234_delete(c13,26);;
 
-(*On a réussi à supprimer tous les éléments en passant par la majorité des cas possibles
-  Vous êtes libres d'essayer avec un ordre différent et un arbre différent*)
+(*On a rÃ©ussi Ã  supprimer tous les Ã©lÃ©ments en passant par la majoritÃ© des cas possibles
+  Vous Ãªtes libres d'essayer avec un ordre diffÃ©rent et un arbre diffÃ©rent*)
